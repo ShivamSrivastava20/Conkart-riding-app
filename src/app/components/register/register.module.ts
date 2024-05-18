@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { RegisterRoutingModule } from './register-routing.module';
 import { RegisterComponent } from './register/register.component';
- import { FormdataComponent } from '../formdata/formdata.component';
+import { FormdataModule } from '../formdata/formdata.module';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
 
 
 @NgModule({
   declarations: [
-    RegisterComponent,
-    FormdataComponent
+    RegisterComponent
   ],
   imports: [
     CommonModule,
-    RegisterRoutingModule
+    RegisterRoutingModule,
+    FormdataModule,
+    FormsModule
   ]
 })
 export class RegisterModule { }
