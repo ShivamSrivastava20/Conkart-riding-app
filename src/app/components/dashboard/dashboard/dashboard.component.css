@@ -1,0 +1,56 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    min-width: 300px;
+  }
+  
+  .mat-table {
+    overflow: auto;
+    max-height: 500px;
+  }
+
+  .table-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cell-padding {
+    padding: 24px; /* Adjust the value as needed */
+  }
+
+  .header-padding {
+    padding: 18px; /* Adjust the value as needed */
+  }
+  .nav-margin-top {
+    margin-top: 20px; /* Adjust the value as needed */
+  }
+  .header-color {
+    color: #3f51b5; /* Primary color hex value */
+  }
+
+  .table-padding {
+    padding: 40px;
+  }
+
+  .custom-card {
+    border: 6px solid #3f51b5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 49px;
+    margin: 104px;
+    background-color: #fff;
+  }
+  
+  .custom-card-header {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  .custom-card-content {
+    color: #3f51b5;
+  }
+  
+  
+  

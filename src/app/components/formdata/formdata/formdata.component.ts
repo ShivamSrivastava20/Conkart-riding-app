@@ -1,6 +1,8 @@
 import { Component, OnInit ,Input} from '@angular/core';
 import {  FormBuilder, FormControl, FormGroup, Validators,  AbstractControl } from '@angular/forms';
 import Validation from '../../../utils/validation';
+import { AuthService } from '../../../services/auth.service'
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -11,6 +13,10 @@ import Validation from '../../../utils/validation';
 export class FormdataComponent implements OnInit {
   @Input() componentName!: string;
   register_bool:boolean=false;
+
+  subscriptions : Subscription[] = [] ;
+
+////////////////////////////////////////////////////////////////////
   register_form: FormGroup = new FormGroup({
     fullname: new FormControl(''),
     username: new FormControl(''),
@@ -25,7 +31,7 @@ export class FormdataComponent implements OnInit {
     password: new FormControl(''),
   });
   submitted = false;
-  constructor(private formBuilder: FormBuilder) {} 
+  constructor(private formBuilder: FormBuilder , authService:AuthService) {} 
   ngOnInit(): void {
   console.log("Component Name : " ,this.componentName)
   if(this.componentName=='register') this.register_bool=true;
@@ -83,8 +89,6 @@ export class FormdataComponent implements OnInit {
     if (this.register_form.invalid) {
       return;
     }
-
-    console.log(JSON.stringify(this.register_form.value, null, 2));
   }
 
   onLoginSubmit():void{
@@ -94,6 +98,11 @@ export class FormdataComponent implements OnInit {
       return;
     }
 
+    console.log("First Name : " , this.login_form)
+// this.subscriptions.push(this.authService.getUserDetails(params:any)).subscribe((response:any)=>
+// {
+
+// })
     console.log(JSON.stringify(this.login_form.value, null, 2));
   }
   
