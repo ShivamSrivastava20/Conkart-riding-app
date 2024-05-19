@@ -12,12 +12,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { HttpClientModule } from '@angular/common/http';
+// import { GooglemapComponent } from './components/googlemap/googlemap/googlemap.component';
+
 // import { FormdataComponent } from './components/formdata/formdata/formdata.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
+    // GooglemapComponent,
     // FormdataComponent
   ],
   imports: [
@@ -29,7 +33,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

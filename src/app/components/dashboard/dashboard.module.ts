@@ -5,10 +5,11 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
-
+import { GooglemapComponent } from '../googlemap/googlemap/googlemap.component';
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    GooglemapComponent
   ],
   imports: [
     CommonModule,

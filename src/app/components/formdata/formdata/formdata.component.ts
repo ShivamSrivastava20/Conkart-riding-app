@@ -3,7 +3,7 @@ import {  FormBuilder, FormControl, FormGroup, Validators,  AbstractControl } fr
 import Validation from '../../../utils/validation';
 import { AuthService } from '../../../services/auth.service'
 import { Subscription } from 'rxjs';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-formdata',
@@ -13,10 +13,10 @@ import { Subscription } from 'rxjs';
 export class FormdataComponent implements OnInit {
   @Input() componentName!: string;
   register_bool:boolean=false;
-
   subscriptions : Subscription[] = [] ;
 
 ////////////////////////////////////////////////////////////////////
+
   register_form: FormGroup = new FormGroup({
     fullname: new FormControl(''),
     username: new FormControl(''),
@@ -31,9 +31,8 @@ export class FormdataComponent implements OnInit {
     password: new FormControl(''),
   });
   submitted = false;
-  constructor(private formBuilder: FormBuilder , authService:AuthService) {} 
-  ngOnInit(): void {
-  console.log("Component Name : " ,this.componentName)
+  constructor(private formBuilder: FormBuilder ,public authService:AuthService , private router:Router) {} 
+  ngOnInit(){
   if(this.componentName=='register') this.register_bool=true;
   else this.register_bool=false;
     this.register_form = this.formBuilder.group(
@@ -78,34 +77,58 @@ export class FormdataComponent implements OnInit {
       }
     );
   }
-
   get f(): { [key: string]: AbstractControl } {
     return this.register_form.controls;
   }
-
-  onRegisterSubmit(): void {
+  onRegisterSubmit() {
     this.submitted = true;
 
     if (this.register_form.invalid) {
       return;
     }
+    let params=
+    {
+      fullname: this.register_form?.value?.fullname,
+      username: this.register_form?.value?.username,
+      email:this.register_form?.value?.email,
+      password: this.register_form?.value?.password,
+      confirmPassword: this.register_form?.value?.confirmPassword,
+      acceptTerms: this.register_form?.value?.acceptTerms
+    }
+    this.subscriptions.push(this.authService.getUserDetails(params).subscribe((response: any) => {
+      this.onRegisterReset();
+      this.router.navigate(['/login']);
+      alert(response.message)
+       
+      // this.showSuccess();
+      // handle the response here
+    }));
   }
-
-  onLoginSubmit():void{
+  onLoginSubmit(){
     this.submitted = true;
 
     if (this.login_form.invalid) {
       return;
     }
 
-    console.log("First Name : " , this.login_form)
-// this.subscriptions.push(this.authService.getUserDetails(params:any)).subscribe((response:any)=>
-// {
+    let params={
+      email:this.login_form?.value?.email,
+      password: this.login_form?.value?.password,
+    }
+    this.subscriptions.push(this.authService.loginUser(params).subscribe((response: any) => {
+      console.log("RESPONSE  : " ,response)
+      if(response.token)
+        {
+          localStorage.setItem('token',response.token);
+        }
+       this.onLoginReset();
+       if(response.status=='success') this.router.navigate(['/dashboard']);
+       else this.router.navigate(['/login']);  
+      alert(response.message)
 
-// })
+    }));
     console.log(JSON.stringify(this.login_form.value, null, 2));
   }
-  
   onRegisterReset(): void {
     this.submitted = false;
     this.register_form.reset();
@@ -113,6 +136,14 @@ export class FormdataComponent implements OnInit {
   onLoginReset():void{
     this.submitted = false;
     this.login_form.reset();
+  }
+  onRegister()
+  {
+    this.router.navigate(['/register']);
+  }
+  onLogin()
+  {
+    this.router.navigate(['/login']);
   }
 }
 

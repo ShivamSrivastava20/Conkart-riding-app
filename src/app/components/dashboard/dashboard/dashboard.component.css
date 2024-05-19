@@ -13,6 +13,12 @@
   .table-container {
     display: flex;
     justify-content: center;
+    width: 100%;
+    max-width: 1500px; /* Increased max width */
+    padding: 105px; /* Increased padding */
+    box-sizing: border-box;
+    margin: 0 auto;
+    background-color: #007bff;
   }
 
   .cell-padding {
@@ -23,7 +29,7 @@
     padding: 18px; /* Adjust the value as needed */
   }
   .nav-margin-top {
-    margin-top: 20px; /* Adjust the value as needed */
+    margin-top: 150px; /* Adjust the value as needed */
   }
   .header-color {
     color: #3f51b5; /* Primary color hex value */
@@ -34,7 +40,7 @@
   }
 
   .custom-card {
-    border: 6px solid #3f51b5;
+    border: 6px solid #7facdd;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 49px;
