@@ -8,6 +8,8 @@
   .mat-table {
     overflow: auto;
     max-height: 500px;
+    justify-content: center;
+    
   }
 
   .table-container {
@@ -22,9 +24,12 @@
   }
   .primary-heading {
     font-weight: bold;
-    color: #000000;
-    margin-right: 100px; /* Primary color */
-    justify-content: center;
+    color: #000000; /* Primary color */
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    font-size: 35px;
+    margin-top: 45px;
   }
   .cell-padding {
     padding: 24px; /* Adjust the value as needed */
@@ -34,7 +39,7 @@
     padding: 18px; /* Adjust the value as needed */
   }
   .nav-margin-top {
-    margin-top: 150px; /* Adjust the value as needed */
+    margin-top: 50px; /* Adjust the value as needed */
   }
   .header-color {
     color: #3f51b5; /* Primary color hex value */

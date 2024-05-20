@@ -17,6 +17,7 @@ export interface PeriodicElement {
   distance:number;
   email:string;
   riders_accepted:number;
+  expired:string;
 }
 
 export interface AllHeaders {
@@ -61,6 +62,7 @@ export class DashboardComponent implements OnInit {
     'riders_accepted',
     'accept',
     'reject',
+    'expired'
   ];
   dataSource = ELEMENT_DATA;
   displayedHeaders: string[] = ['position', 'name', 'view'];
@@ -70,6 +72,7 @@ export class DashboardComponent implements OnInit {
   loggedInUser={
     email:''
   }
+  
 
   constructor(public fetchRidesService: FetchRidesService , public authService:AuthService , public router :Router) {}
 
@@ -86,6 +89,7 @@ export class DashboardComponent implements OnInit {
     }))
     }
   }
+  
   onButtonClick(element: any, option: any) {
     let params = {};
     if (option == 'view' && element.name == 'Available Rides') {
@@ -112,7 +116,8 @@ export class DashboardComponent implements OnInit {
               price: ele?.price,
               distance: ele?.distance,
               email:ele?.email,
-              riders_accepted:ele?.driver_email_ids?ele?.driver_email_ids.length:0
+              riders_accepted:ele?.driver_email_ids?ele?.driver_email_ids.length:0,
+              expired:ele.expired?'Yes':'No'
             };
             ELEMENT_DATA.push(newElement);
             console.log('ELEMENT : ', ELEMENT_DATA);
@@ -144,7 +149,9 @@ export class DashboardComponent implements OnInit {
         price: element?.price,
         distance: element?.distance,
         email:element?.email,
-        riders_accepted:element?.driver_email_ids?element?.driver_email_ids.length:0
+        riders_accepted:element?.driver_email_ids?element?.driver_email_ids.length:0,
+        expired:element.expired?'Yes':'No'
+
 
       };
       ELEMENT_DATA.push(newElement);
@@ -171,8 +178,8 @@ export class DashboardComponent implements OnInit {
         price: element?.price,
         distance: element?.distance,
         email:element?.email,
-        riders_accepted:element?.driver_email_ids?element?.driver_email_ids.length:0
-
+        riders_accepted:element?.driver_email_ids?element?.driver_email_ids.length:0,
+        expired:element.expired?'Yes':'No'
       };
       ELEMENT_DATA.push(newElement);
       this.header_message= "Rejected Rides" ;
