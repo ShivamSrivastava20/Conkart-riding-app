@@ -33,13 +33,11 @@ console.log("PARAMS : " ,params)
 
   checkjwt(params:any): Observable<any> 
   {
-    const token=localStorage.getItem('token');
     const url = `${this.apiUrl}/user/checkjwt`;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       // Add any other headers you need here
     });
-    params.token=token;
-    return this.http.post<any>(url, params, { headers });
+      return this.http.post<any>(url, params, { headers });
   }
 }

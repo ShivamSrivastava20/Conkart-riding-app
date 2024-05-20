@@ -9,3 +9,12 @@
     margin-left: 10px;
     background-color:#007bff;;
   }
+
+  .map{
+    margin-left: 10px;
+    height: 70%;
+    width: 90%;
+    background-color: transparent;
+    /* opacity: 1;
+    transition: opacity 150ms ease-in; */
+  }

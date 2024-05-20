@@ -20,7 +20,12 @@
     margin: 0 auto;
     background-color: #007bff;
   }
-
+  .primary-heading {
+    font-weight: bold;
+    color: #000000;
+    margin-right: 100px; /* Primary color */
+    justify-content: center;
+  }
   .cell-padding {
     padding: 24px; /* Adjust the value as needed */
   }

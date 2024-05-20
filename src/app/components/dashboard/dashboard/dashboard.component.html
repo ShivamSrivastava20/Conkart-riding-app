@@ -28,6 +28,7 @@
 
 
 <div class="table-container nav-margin-top" *ngIf="isEnableAvailRides">
+  <h1 class="primary-heading">{{header_message}} :</h1>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Define columns -->
     <ng-container matColumnDef="position">
@@ -53,12 +54,24 @@
         <th mat-header-cell *matHeaderCellDef class="header-padding header-color"> Destination </th>
         <td mat-cell *matCellDef="let element" class="cell-padding"> {{element.destination}} </td>
       </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef class="header-padding header-color"> Price </th>
+        <td mat-cell *matCellDef="let element" class="cell-padding"> {{element.price}} </td>
+      </ng-container>
+      <ng-container matColumnDef="distance">
+        <th mat-header-cell *matHeaderCellDef class="header-padding header-color"> Distance </th>
+        <td mat-cell *matCellDef="let element" class="cell-padding"> {{element.distance}} </td>
+      </ng-container>
 
       <ng-container matColumnDef="map">
         <th mat-header-cell *matHeaderCellDef class="header-padding header-color"> View Map </th>
         <td mat-cell *matCellDef="let element" class="cell-padding">
             <button mat-icon-button style="color: green;"(click)="openMap(element)">View Map</button>
         </td>
+    </ng-container>
+    <ng-container matColumnDef="riders_accepted">
+      <th mat-header-cell *matHeaderCellDef class="header-padding header-color"> Total Riders Accepted  </th>
+      <td mat-cell *matCellDef="let element" class="cell-padding"> {{element.riders_accepted}} </td>
     </ng-container>
 
     <ng-container matColumnDef="accept">
@@ -88,7 +101,7 @@
         Total Commissions Earned
     </div>
     <div class="custom-card-content">
-        1000
+        {{price}}
     </div>
 </div>
   
@@ -97,8 +110,7 @@
         Total Rides Completed
     </div>
     <div class="custom-card-content">
-        5 Rides Completed Today <br>
-        160 Rides Completed this Month
+        Total number of rides completed {{count}}
     </div>
 </div>
   

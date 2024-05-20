@@ -80,6 +80,9 @@ export class FormdataComponent implements OnInit {
   get f(): { [key: string]: AbstractControl } {
     return this.register_form.controls;
   }
+  get l(): { [key: string]: AbstractControl } {
+    return this.login_form.controls;
+  }
   onRegisterSubmit() {
     this.submitted = true;
 

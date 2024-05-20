@@ -1,74 +1,78 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { animation } from '@angular/animations';
+import { Component, AfterViewInit, ViewChild, ElementRef, Renderer2, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-
+// const { AdvancedMarkerElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
+declare var google:any;
 @Component({
   selector: 'app-googlemap',
   templateUrl: './googlemap.component.html',
   styleUrls: ['./googlemap.component.css']
 })
 export class GooglemapComponent implements AfterViewInit {
-  @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
-  map!: google.maps.Map;
-  // directionsService:any;
-  // directionsRenderer:any;
+  @ViewChild('map', { static: false }) mapElementRef!: ElementRef;
+ 
+  center={ lat:12.9716 , lng:77.5946 };
+
+  source={lat:13.0055,lng:77.5692};
+  destination={lat:12.9121,lng:77.6446}
+  
+  googleMaps: any;
+  map:any;
+  marker:any;
+  mapListener:any;
+  markerListener:any;
+  intersectionObserver:any;
   receivedData:any;
+  private renderer=inject(Renderer2)
   constructor(private router:Router , private route: ActivatedRoute) { }
 
   ngAfterViewInit(): void {
     this.route.queryParams.subscribe(params => {
       this.receivedData = params;
+      console.log("/////////////////",this.receivedData)
      })
-    this.initMap();
+     this.loadMap();
   }
+async loadMap()
+{
+  const { Map } = await google.maps.importLibrary("maps");
+  const mapEl = this.mapElementRef.nativeElement ;
+  const location=new google.maps.LatLng(this.center.lat,this.center.lng);
+  const source_loc=new google.maps.LatLng( this.receivedData.source_latitude,this.receivedData.source_longitude);
+  const destination_loc=new google.maps.LatLng(this.receivedData.destination_latitude,this.receivedData.destination_longitude);
 
-  initMap(): void {
-    const mapOptions: google.maps.MapOptions = {
-      center: new google.maps.LatLng(37.7749, -122.4194), // Set your desired location
-      zoom: 8
-    };
-console.log("MMMMMMMMMMMMMAAAAAAAAAAA" , this.mapContainer);
-    // Ensure the map container exists before initializing the map
-    if (this.mapContainer) {
-      this.map = new google.maps.Map(this.mapContainer.nativeElement, mapOptions);
-    } else {
-      console.error('Map container element is not available.');
-    }
-    google.maps.event.addListener(this.map,"click",(event) =>
-      {
-       this.map.setOptions({
-          scrollwheel:true
-        })
-      } )
-      let directionsService=new google.maps.DirectionsService();
-      let directionsRenderer=new google.maps.DirectionsRenderer();
-      directionsRenderer.setMap(this.map);
 
-      // let request =
-      // {
-      //   origin:this.receivedData.source,
-      //   destination:this.receivedData.destination,
-      //   travelMode:google.maps.TravelMode.DRIVING
-      // }
-      const request: google.maps.DirectionsRequest = {
-        origin: { lat: 41.85, lng: -87.65 }, // Example origin
-        destination: { lat: 41.85, lng: -87.65 }, // Example destination
-        travelMode: google.maps.TravelMode.DRIVING, // Use the appropriate travel mode enum value
-      };
-
-      console.log("RRRRRRRRRRRRRRRRRR" , request);
-
-      directionsService.route(request,(result:any,status:any) =>
+  this.map=new Map(mapEl,
     {
-      console.log("RES : " ,result)
-      if(status=='OK')
-        {
-          directionsRenderer.setDirections(result);
-        }
-    })
+      center:location,
+      zoom : 14,
+      mapId:'123456789',
+    }
+  )
+this.addLocation(source_loc,destination_loc)
+}
+async addLocation(source_loc:any ,destination_loc:any )
+{
+  console.log("LOCATION : " , location)
+  const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+  this.marker=new AdvancedMarkerElement(
+    {
+      map:this.map,
+      position:source_loc,
+      gmpDraggable:true
+    }
+  )
 
+  this.marker=new AdvancedMarkerElement(
+    {
+      map:this.map,
+      position:destination_loc,
+      gmpDraggable:true
+    }
+  )
 
-  }
+}
   moveToDashboard()
   {
     this.router.navigate(['/dashboard']);

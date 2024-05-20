@@ -20,4 +20,13 @@ export class FetchRidesService {
 console.log("PARAMS : " ,params)
     return this.http.post<any>(url, params, { headers });
   }
+  updateRides(params: any): Observable<any> {
+    const url = `${this.apiUrl}/rides/updateRides`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      // Add any other headers you need here
+    });
+console.log("PARAMS : " ,params)
+    return this.http.post<any>(url, params, { headers });
+  }
 }
